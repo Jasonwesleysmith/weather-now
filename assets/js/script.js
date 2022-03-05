@@ -5,6 +5,7 @@ var searchInput = document.querySelector("#search-input")
 var searchForm = document.querySelector("form")
 var today = document.querySelector("#today")
 var forecast = document.querySelector("#forecast")
+var historyContainer = document.querySelector("#history")
 var apiKey = "1382162e354e1320109c2cb84c66834d"
 
 // Get the weather from the API endpoint using the API Key and location
@@ -24,18 +25,15 @@ function submitForm(e) {
                     .then(response => response.json())
                     .then(data => {
                         displayCurrent(geoData, data) 
+                        displayForecast(data)
+                        saveSearch(searchInput.value)
                     })
             });
-        // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-        // console.log(searchInput.value)
     }
 
 } 
 
 function displayCurrent(geoData, data) {
-    console.log(data)
-    console.log(geoData)
-    console.log(new Date())
     today.innerHTML = ""
 
     const currentDate = new Date()
@@ -72,15 +70,82 @@ function displayCurrent(geoData, data) {
     const uvIndex = document.createElement("div")
     uvIndex.innerHTML = `UV index: ${data.current.uvi}`
 
-
-    
     today.append(topContainer, temp, humidity, windSpeed, uvIndex)
-    console.log({city, date, icon, temp, humidity, windSpeed, uvIndex})
+
 }
-// fetchForecast = 
 
-// fetch 
+function displayForecast(data) {
+    forecast.innerHTML = ""
 
+    data.daily.forEach((day, i)=> {
+        if(i <= 4) {
+            const currentDate = new Date()
+            const date = currentDate.getDate()
+            const month = currentDate.getMonth()
+            const year = currentDate.getFullYear()
+            const formattedDate = `${month+1}/${date + (i + 1)}/${year}`
+    
+            const card = document.createElement("div")
+            card.classList.add('card')
+    
+            const futureDate = document.createElement("h4")
+            futureDate.innerHTML = formattedDate
+    
+            const highTemp = document.createElement("div")
+            highTemp.innerHTML = data.daily[i].temp.max
+            
+            const lowTemp = document.createElement("div")
+            lowTemp.innerHTML = data.daily[i].temp.min
+            
+            const wind = document.createElement("div")
+            wind.innerHTML = `${data.daily[i].wind_speed} MPH`
+            
+            const humidity = document.createElement("div")
+            humidity.innerHTML = `${data.daily[i].humidity}%`
+            
+            const icon = document.createElement("img")
+            icon.src = `http://openweathermap.org/img/wn/${data.daily[0].weather[0].icon}@2x.png`
+            icon.classList.add("forecast-icon")
+    
+            card.append(futureDate, highTemp, lowTemp, wind, humidity, icon)
+        
+            forecast.append(card)
+        }
+    })
 
+}
+
+function saveSearch(search) {
+    const prevSearchArr = JSON.parse(localStorage.getItem("searchArr"))
+    const saveSearchArr = prevSearchArr ? [...prevSearchArr, search] : [search]
+    localStorage.setItem("searchArr", JSON.stringify(saveSearchArr))
+    displayHistory(saveSearchArr)
+    // display in dom
+}
+
+function checkLocalStorage() {
+    const prevSearchArr = JSON.parse(localStorage.getItem("searchArr"))
+    //display in dom
+    console.log(prevSearchArr)
+    if (prevSearchArr) {
+        displayHistory(prevSearchArr)
+    }
+}
+
+function displayHistory(arr) {
+    historyContainer.innerHTML = ""
+    arr.forEach(item => {
+        console.log(typeof item)
+        const historyItem = document.createElement('div')
+        historyItem.classList.add('history-item')
+        historyItem.innerHTML = item
+        console.log(history)
+        historyContainer.append(historyItem)
+    })
+}
+
+checkLocalStorage()
+
+//on load query local storage and display stored searches
 
 searchForm.addEventListener("submit", submitForm)
