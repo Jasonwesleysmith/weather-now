@@ -1,0 +1,26 @@
+body {
+    background: #556270;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FF6B6B, #556270);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FF6B6B, #556270); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+#today {
+    display: flex;
+    flex-direction: column;
+}
+
+.current-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.top-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-container span {
+    color: darkslategray;
+}
