@@ -1,6 +1,4 @@
 
-var searchHistory = []
-var weatherCall = "https://api.openweathermap.org/"
 var searchInput = document.querySelector("#search-input")
 var searchForm = document.querySelector("form")
 var today = document.querySelector("#today")
@@ -126,7 +124,6 @@ function saveSearch(search) {
 function checkLocalStorage() {
     const prevSearchArr = JSON.parse(localStorage.getItem("searchArr"))
     //display in dom
-    console.log(prevSearchArr)
     if (prevSearchArr) {
         displayHistory(prevSearchArr)
     }
@@ -135,11 +132,9 @@ function checkLocalStorage() {
 function displayHistory(arr) {
     historyContainer.innerHTML = ""
     arr.forEach(item => {
-        console.log(typeof item)
         const historyItem = document.createElement('div')
         historyItem.classList.add('history-item')
         historyItem.innerHTML = item
-        console.log(history)
         historyContainer.append(historyItem)
     })
 }
