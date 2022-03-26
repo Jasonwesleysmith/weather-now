@@ -121,23 +121,18 @@ function displayForecast(data) {
 function saveSearch(search) {
     const prevSearchArr = JSON.parse(localStorage.getItem("searchArr"))
     const saveSearchArr = prevSearchArr ? [search, ...prevSearchArr] : [search]
-    // does list already have search
-    //loop over saveSearchArr
-    //if so, remove from list
-    // is list x long? if so pop last item
-
+  
     let uniqueSearch = [];
     saveSearchArr.forEach((s) => {
         if (!uniqueSearch.includes(s)) {
             uniqueSearch.push(s);
         }
     });
-
     if(uniqueSearch.length >= 10) uniqueSearch.pop()
 
     localStorage.setItem("searchArr", JSON.stringify(uniqueSearch))
     displayHistory(uniqueSearch)
-    // display in dom
+   
 }
 
 function checkLocalStorage() {
