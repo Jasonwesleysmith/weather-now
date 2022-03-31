@@ -1,4 +1,3 @@
-
 var searchInput = document.querySelector("#search-input")
 var searchForm = document.querySelector("form")
 var today = document.querySelector("#today")
@@ -62,7 +61,7 @@ function displayCurrent(geoData, data) {
     topContainer.append(city, date, icon)
 
     const temp = document.createElement("div")
-    temp.innerHTML = `Temp: ${data.current.temp}`
+    temp.innerHTML = `Temp: ${data.current.temp}°`
 
     const humidity = document.createElement("div")
     humidity.innerHTML = `Humidity: ${data.current.humidity}%`
@@ -95,16 +94,16 @@ function displayForecast(data) {
             futureDate.innerHTML = formattedDate
 
             const highTemp = document.createElement("div")
-            highTemp.innerHTML = data.daily[i].temp.max
+            highTemp.innerHTML = `High of ${data.daily[i].temp.max}°`
 
             const lowTemp = document.createElement("div")
-            lowTemp.innerHTML = data.daily[i].temp.min
+            lowTemp.innerHTML = `Low of ${data.daily[i].temp.min}°`
 
             const wind = document.createElement("div")
-            wind.innerHTML = `${data.daily[i].wind_speed} MPH`
+            wind.innerHTML = `Wind Gusts: ${data.daily[i].wind_speed} MPH`
 
             const humidity = document.createElement("div")
-            humidity.innerHTML = `${data.daily[i].humidity}%`
+            humidity.innerHTML = `Humidity: ${data.daily[i].humidity}%`
 
             const icon = document.createElement("img")
             icon.src = `http://openweathermap.org/img/wn/${data.daily[0].weather[0].icon}@2x.png`
