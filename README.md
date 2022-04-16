@@ -1,11 +1,11 @@
-# weather-now
+# WEATHER-NOW
 
 ## Description: A weather app utilizing server side One Call API
 
 # TECHNOLOGIES utilized: HTML, CSS, JavaScript
 
-## Utilizes One Call weather API to retireve data
-## Persistant data is stored in local storage
+* Utilizes One Call weather API to retireve data
+* Persistant data is stored in local storage
 
 Deployed link: https://jasonwesleysmith.github.io/weather-now/
 
